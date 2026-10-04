@@ -1,3 +1,16 @@
 <div class="weekly-goals-container">
-  weekly-goals works!
+  <app-weekly-goals-header (editClicked)="openModal(false)" />
+  <div class="card-body">
+    <div class="goals-list">
+      @for (goal of incompleteWeeklyGoals(); track goal.__id) {
+        <app-weekly-goals-item [goal]="goal" (check)="checkGoal($event)" />
+      }
+      @for (goal of completeWeeklyGoals(); track goal.__id) {
+        <app-weekly-goals-item [goal]="goal" (check)="checkGoal($event)" />
+      }
+    </div>
+    <button class="add-goal" (click)="openModal(true)">
+      + Add a weekly goal
+    </button>
+  </div>
 </div>

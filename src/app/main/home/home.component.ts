@@ -4,6 +4,9 @@ import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
 import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
+import { LongTermGoalsComponent } from './long-term-goals/long-term-goals.component';
+import { QuarterlyGoalsComponent } from './quarterly-goals/quarterly-goals.component';
+import { WeeklyGoalsComponent } from './weekly-goals/weekly-goals.component';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +16,10 @@ import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
   standalone: true,
   animations: HomeAnimations,
   imports: [
+    WeeklyGoalsComponent,
     NavbarComponent,
+    LongTermGoalsComponent, 
+    QuarterlyGoalsComponent
   ]
 })
 export class HomeComponent implements OnInit {
@@ -43,3 +49,5 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 }
+
+
