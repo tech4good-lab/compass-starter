@@ -1,6 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, input, inject, WritableSignal, Signal, signal, Inject, Injector } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
 import { LongTermGoalsItemAnimations } from './long-term-goals-item.animations';
 import { User } from 'src/app/core/store/user/user.model';
+import { AuthStore } from 'src/app/core/store/auth/auth.store';
+import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
 
 @Component({
   selector: 'app-long-term-goals-item',
@@ -13,15 +15,16 @@ import { User } from 'src/app/core/store/user/user.model';
   ],
 })
 export class LongTermGoalsItemComponent implements OnInit {
+  readonly authStore = inject(AuthStore);
   // --------------- INPUTS AND OUTPUTS ------------------
-  
-  /** Header text for the goal. */
-  goalHeader = input<string>(); 
-  /** Caption for the goal. */
-  goalText = input<string>();
-  
+
+  /** The current signed in user. */
+  currentUser: Signal<User> = this.authStore.user;
 
   // --------------- LOCAL UI STATE ----------------------
+
+  /** Loading icon. */
+  loading: WritableSignal<boolean> = signal(false);
 
   // --------------- COMPUTED DATA -----------------------
 
@@ -30,6 +33,8 @@ export class LongTermGoalsItemComponent implements OnInit {
   // --------------- OTHER -------------------------------
 
   constructor(
+    private injector: Injector,
+    @Inject(BATCH_WRITE_SERVICE) private batch: BatchWriteService,
   ) { }
 
   // --------------- LOAD AND CLEANUP --------------------

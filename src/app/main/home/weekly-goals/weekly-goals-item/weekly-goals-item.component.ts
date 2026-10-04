@@ -1,13 +1,8 @@
-import { Component, OnInit, OutputEmitterRef, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, input, output, inject, WritableSignal, Signal, signal, computed, Inject, Injector } from '@angular/core';
 import { WeeklyGoalsItemAnimations } from './weekly-goals-item.animations';
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { BatchWriteService, BATCH_WRITE_SERVICE } from 'src/app/core/store/batch-write.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { WeeklyGoalData } from '../../home.model';
-
 
 @Component({
   selector: 'app-weekly-goals-item',
@@ -16,30 +11,34 @@ import { WeeklyGoalData } from '../../home.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: WeeklyGoalsItemAnimations,
   standalone: true,
-  imports: [MatCheckbox, MatProgressSpinner,],
+  imports: [
+  ],
 })
 export class WeeklyGoalsItemComponent implements OnInit {
+  readonly authStore = inject(AuthStore);
   // --------------- INPUTS AND OUTPUTS ------------------
-  
-  goal: Signal<WeeklyGoalData> = input<WeeklyGoalData>();
-  check: OutputEmitterRef<WeeklyGoalData> = output<WeeklyGoalData>();
-  
+
+  /** The current signed in user. */
+  currentUser: Signal<User> = this.authStore.user;
+
   // --------------- LOCAL UI STATE ----------------------
-  
+
+  /** Loading icon. */
+  loading: WritableSignal<boolean> = signal(false);
+
   // --------------- COMPUTED DATA -----------------------
 
-  isChecked: Signal<boolean> = computed(() => this.goal()?.completed ?? false);
-  
   // --------------- EVENT HANDLING ----------------------
-  checkGoal() {
-    this.check.emit(this.goal());
-  }
 
   // --------------- OTHER -------------------------------
-  constructor(private snackBar: MatSnackBar) {}
-  
+
+  constructor(
+    private injector: Injector,
+    @Inject(BATCH_WRITE_SERVICE) private batch: BatchWriteService,
+  ) { }
 
   // --------------- LOAD AND CLEANUP --------------------
-  ngOnInit(): void {}
+  
+  ngOnInit(): void {
+  }
 }
-

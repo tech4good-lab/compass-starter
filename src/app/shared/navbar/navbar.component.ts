@@ -2,7 +2,6 @@ import { inject, Component, OnInit, ChangeDetectionStrategy, Input, Output, Even
 import { User } from 'src/app/core/store/user/user.model';
 import { AuthStore } from 'src/app/core/store/auth/auth.store';
 import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +9,7 @@ import { MatIcon } from '@angular/material/icon';
   styleUrls: ['./navbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatMenuTrigger, MatMenu, MatIcon],
+  imports: [MatMenuTrigger, MatMenu],
 })
 export class NavbarComponent implements OnInit {
   readonly authStore = inject(AuthStore);
