@@ -1,7 +1,24 @@
 :host {
   display: block;
-  .long-term-goals-item-container {
-    // REMOVE WHEN FINISHING LAYOUT STYLES
-    border: 1px solid black;
-  }
+}
+
+.long-term-goals-item-container {
+  max-width: 387px;
+  padding: 16px;
+  background: #ffffff;
+}
+
+.goal-duration {
+  margin-bottom: 4px;
+  font-size: 16.25px;
+  font-weight: 700;
+  color: #4B5853;
+}
+
+.goal-description {
+  margin-bottom: 16px;
+  font-size: 16.25px;
+  font-weight: 400;
+  color: #4B5853;
+  border-bottom: 1px solid #E5E5E5;
 }

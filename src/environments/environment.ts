@@ -7,6 +7,12 @@ export const environment = {
   mockDB: true,
   firebase: {
     apiKey: import.meta.env.NG_APP_FIREBASE_DEV_API_KEY,
-    // REPLACE WITH CONFIG
+    authDomain: 'team-a2-skill-building.firebaseapp.com',
+    projectId: 'team-a2-skill-building',
+    storageBucket: 'team-a2-skill-building.firebasestorage.app',
+    messagingSenderId: '726587850875',
+    appId: '1:726587850875:web:676d80d0e6de0277b1e2de',
+    measurementId: 'G-HML2P05NGG',
   },
+
 };
